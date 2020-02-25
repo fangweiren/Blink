@@ -3,7 +3,7 @@
     "pages/classic/classic"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#afef00",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "林间有风",
     "navigationBarTextStyle": "black",
     "navigationStyle": "default",
