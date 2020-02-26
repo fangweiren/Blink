@@ -3,4 +3,4 @@ App({
     onLaunch: function () {
 
     }
-})
+});
