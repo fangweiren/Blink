@@ -1,6 +1,7 @@
 import {
   ClassicModel
 } from '../../models/classic.js'
+
 import {
   LikeModel
 } from '../../models/like.js'
@@ -13,7 +14,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classicData: null
+    classicData: null,
+    latest: true,
+    first: false
   },
 
   /**
@@ -22,7 +25,7 @@ Page({
   onLoad: function (options) {
     classicModel.getLatest((res) => {
       this.setData({
-        classicData: res.data
+        classicData: res
       })
     })
   },
@@ -30,6 +33,25 @@ Page({
   onLike: function (event) {
     let behavior = event.detail.behavior
     likeModel.like(behavior, this.data.classicData.id, this.data.classicData.type)
+  },
+
+  onNext: function (event) {
+    this._updateClassic('next')
+  },
+
+  onPrevious: function (event) {
+    this._updateClassic('previous')
+  },
+
+  _updateClassic: function (nextOrPrevious) {
+    let index = this.data.classicData.index
+    classicModel.getClassic(index, nextOrPrevious, (res) => {
+      this.setData({
+        classicData: res,
+        first: classicModel.isFirst(res.index),
+        latest: classicModel.isLatest(res.index)
+      })
+    })
   },
 
   /**
