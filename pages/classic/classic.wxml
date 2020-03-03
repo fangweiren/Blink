@@ -1,9 +1,11 @@
 <!-- pages/classic/classic.wxml -->
 <view class="container">
     <view class="header">
-        <v-epsoide class="epsoide" index="{{ classicData.index }}" />
-        <v-like class="like" bind:like="onLike" like="{{ classicData.like_status }}" count="{{ classicData.fav_nums }}" />
+        <v-episode class="episode" index="{{ classicData.index }}" />
+        <v-like class="like" bind:like="onLike" like="{{ likeStatus }}" count="{{ likeCount }}" />
     </view>
-    <v-movie img="{{ classicData.image }}" content="{{ classicData.content }}" />
+    <v-movie hidden="{{ classicData.type != 100 }}" img="{{ classicData.image }}" content="{{ classicData.content }}" />
+    <v-music wx:if="{{ classicData.type == 200 }}" img="{{ classicData.image }}" content="{{ classicData.content }}" src="{{ classicData.url }}" title="{{ classicData.title }}" />
+    <v-essay hidden="{{ classicData.type != 300 }}" img="{{ classicData.image }}" content="{{ classicData.content }}" />
     <v-navi bind:left="onNext" bind:right="onPrevious" title="{{ classicData.title }}" first="{{ first }}" latest="{{ latest }}" class="navi" />
 </view>
