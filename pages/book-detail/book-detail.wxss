@@ -183,3 +183,7 @@
     border-radius: 15px;
     padding-left: 25rpx;
 }
+
+.shadow {
+    color: #999;
+}
