@@ -57,3 +57,9 @@
     margin-right: 15rpx;
     margin-bottom: 10rpx;
 }
+
+.num {
+    margin-left: 10rpx;
+    font-size: 22rpx;
+    color: #aaa;
+}
