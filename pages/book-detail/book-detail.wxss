@@ -58,6 +58,10 @@
     margin-bottom: 10rpx;
 }
 
+.content {
+    text-indent: 58rpx;
+    font-weight: 500;
+}
 .num {
     margin-left: 10rpx;
     font-size: 22rpx;
