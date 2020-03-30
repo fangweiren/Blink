@@ -2,8 +2,11 @@
 import {
   KeywordModel
 } from '../../models/keyword.js'
-
+import {
+  BookModel
+} from '../../models/book.js'
 const keywordModel = new KeywordModel()
+const bookModel = new BookModel()
 
 Component({
   /**
@@ -18,7 +21,10 @@ Component({
    */
   data: {
     historyWords: [],
-    hotWords: []
+    hotWords: [],
+    dataArray: [],
+    searching: false,
+    q: ""
   },
 
   attached() {
@@ -41,9 +47,24 @@ Component({
       this.triggerEvent('cancel', {}, {})
     },
 
+    onDelete(event) {
+      this.setData({
+        searching: false
+      })
+    },
+
     onConfirm(event) {
-      const word = event.detail.value
-      keywordModel.addToHistory(word)
+      this.setData({
+        searching: true
+      })
+      const q = event.detail.value || event.detail.text
+      bookModel.search(0, q).then(res => {
+        this.setData({
+          dataArray: res.books,
+          q: q
+        })
+        keywordModel.addToHistory(q)
+      })
     }
   }
 })
