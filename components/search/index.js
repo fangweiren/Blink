@@ -17,7 +17,20 @@ Component({
    * 组件的初始数据
    */
   data: {
+    historyWords: [],
+    hotWords: []
+  },
 
+  attached() {
+    this.setData({
+      historyWords: keywordModel.getHistory()
+    })
+
+    keywordModel.getHot().then(res => {
+      this.setData({
+        hotWords: res.hot
+      })
+    })
   },
 
   /**

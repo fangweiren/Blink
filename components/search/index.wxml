@@ -13,11 +13,21 @@
                 <view class="chunk"></view>
                 <text>历史搜索</text>
             </view>
+            <view class="tags">
+                <block wx:for="{{ historyWords }}" wx:key="d">
+                    <v-tag text="{{ item }}" />
+                </block>
+            </view>
         </view>
         <view class="history hot-search">
             <view class="title">
                 <view class="chunk"></view>
                 <text>热门搜索</text>
+            </view>
+            <view class="tags">
+                <block wx:for="{{ hotWords }}" wx:key="text">
+                    <v-tag text="{{ item }}" />
+                </block>
             </view>
         </view>
     </view>
