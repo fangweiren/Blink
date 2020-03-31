@@ -73,24 +73,26 @@ Component({
     },
 
     onCancel(event) {
+      this.initialize()
       this.triggerEvent('cancel', {}, {})
     },
 
     onDelete(event) {
+      this.initialize()
       this._closeResult()
     },
 
     onConfirm(event) {
       this._showResult()
       this._showLoadingCenter()
-      this.initialize()
+      // this.initialize()
       const q = event.detail.value || event.detail.text
+      this.setData({
+        q: q
+      })
       bookModel.search(0, q).then(res => {
         this.setMoreData(res.books)
         this.setTotal(res.total)
-        this.setData({
-          q: q
-        })
         keywordModel.addToHistory(q)
         this._hideLoadingCenter()
       })
@@ -132,7 +134,8 @@ Component({
 
     _closeResult() {
       this.setData({
-        searching: false
+        searching: false,
+        q: ''
       })
     }
   }
