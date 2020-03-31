@@ -48,6 +48,16 @@ Component({
   methods: {
     _load_more() {
       console.log(1233444)
+      if (!this.data.q) {
+        return
+      }
+      const length = this.data.dataArray.length
+      bookModel.search(length, this.data.q).then(res => {
+        const tempArray = this.data.dataArray.concat(res.books)
+        this.setData({
+          dataArray: tempArray
+        })
+      })
     },
 
     onCancel(event) {
