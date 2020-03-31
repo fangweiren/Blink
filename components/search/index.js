@@ -21,7 +21,7 @@ Component({
   properties: {
     more: {
       type: String,
-      observer: '_load_more'
+      observer: 'loadMore'
     }
   },
 
@@ -52,20 +52,19 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    _load_more() {
-      console.log(1233444)
+    loadMore() {
       if (!this.data.q) {
         return
       }
-      if (this.data.loading) {
+      if (this._isLocked()) {
         return
       }
-      // const length = this.data.dataArray.length
       if (this.hasMore()) {
-        this.data.loading = true // 没有绑定wxml中的数据时可以这么写
+        // this.data.loading = true // 没有绑定wxml中的数据时可以这么写
+        this._locked()
         bookModel.search(this.getCurrentStart(), this.data.q).then(res => {
           this.setMoreData(res.books)
-          this.data.loading = false
+          this._unLocked()
         })
       }
     },
@@ -75,15 +74,11 @@ Component({
     },
 
     onDelete(event) {
-      this.setData({
-        searching: false
-      })
+      this._closeResult()
     },
 
     onConfirm(event) {
-      this.setData({
-        searching: true
-      })
+      this._showResult()
       this.initialize()
       const q = event.detail.value || event.detail.text
       bookModel.search(0, q).then(res => {
@@ -93,6 +88,30 @@ Component({
           q: q
         })
         keywordModel.addToHistory(q)
+      })
+    },
+
+    _isLocked() {
+      return this.data.loading ? true : false
+    },
+
+    _locked() {
+      this.data.loading = true
+    },
+
+    _unLocked() {
+      this.data.loading = false
+    },
+
+    _showResult() {
+      this.setData({
+        searching: true
+      })
+    },
+
+    _closeResult() {
+      this.setData({
+        searching: false
       })
     }
   }
