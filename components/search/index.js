@@ -27,7 +27,8 @@ Component({
     hotWords: [],
     dataArray: [],
     searching: false,
-    q: ""
+    q: "",
+    loading: false
   },
 
   attached() {
@@ -51,12 +52,17 @@ Component({
       if (!this.data.q) {
         return
       }
+      if (this.data.loading) {
+        return
+      }
       const length = this.data.dataArray.length
+      this.data.loading = true // 没有绑定wxml中的数据时可以这么写
       bookModel.search(length, this.data.q).then(res => {
         const tempArray = this.data.dataArray.concat(res.books)
         this.setData({
           dataArray: tempArray
         })
+        this.data.loading = false
       })
     },
 
