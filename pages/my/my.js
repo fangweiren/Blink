@@ -1,4 +1,14 @@
 // pages/my/my.js
+import {
+  ClassicModel
+} from "../../models/classic.js"
+import {
+  BookModel
+} from "../../models/book.js"
+
+const classicModel = new ClassicModel()
+const bookModel = new BookModel()
+
 Page({
 
   /**
@@ -6,7 +16,8 @@ Page({
    */
   data: {
     authorized: false,
-    userInfo: null
+    userInfo: null,
+    bookCount: 0
   },
 
   /**
@@ -14,6 +25,7 @@ Page({
    */
   onLoad: function (options) {
     this.userAuthorized()
+    this.getMyBookCount()
     // wx.getUserInfo({
     //   success: data => {
     //     console.log(data)
@@ -38,6 +50,15 @@ Page({
     })
   },
 
+  getMyBookCount() {
+    bookModel.getMyBookCount()
+      .then(res => {
+        this.setData({
+          bookCount: res.count
+        })
+      })
+  },
+
   onGetUserInfo(event) {
     const userInfo = event.detail.userInfo
     if (userInfo) {
@@ -46,6 +67,18 @@ Page({
         userInfo: userInfo
       })
     }
+  },
+
+  onJumpToAbout(event) {
+    wx.navigateTo({
+      url: '/pages/about/about',
+    });
+  },
+
+  onStudy(event) {
+    wx.navigateTo({
+      url: '/pages/course/course',
+    });
   },
 
   /**
