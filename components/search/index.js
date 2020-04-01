@@ -57,17 +57,17 @@ Component({
       if (!this.data.q) {
         return
       }
-      if (this._isLocked()) {
+      if (this.isLocked()) {
         return
       }
       if (this.hasMore()) {
         // this.data.loading = true // 没有绑定wxml中的数据时可以这么写
-        this._locked()
+        this.locked()
         bookModel.search(this.getCurrentStart(), this.data.q).then(res => {
           this.setMoreData(res.books)
-          this._unLocked()
+          this.unLocked()
         }, () => {
-          this._unLocked()
+          this.unLocked()
         })
       }
     },
@@ -95,22 +95,6 @@ Component({
         this.setTotal(res.total)
         keywordModel.addToHistory(q)
         this._hideLoadingCenter()
-      })
-    },
-
-    _isLocked() {
-      return this.data.loading ? true : false
-    },
-
-    _locked() {
-      this.setData({
-        loading: true
-      })
-    },
-
-    _unLocked() {
-      this.setData({
-        loading: false
       })
     },
 
