@@ -18,6 +18,14 @@
             <text class="description">喜欢的书</text>
         </view>
     </view>
+    <view class="like-container">
+        <image class="headline" src="/images/my/like.png" />
+        <view class="preview-container">
+            <block wx:for="{{classics}}" wx:key="classic">
+                <v-preview class="preview" classic="{{ item }}" />
+            </block>
+        </view>
+    </view>
     <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权</button> -->
 </view>
 <image bind:tap="onStudy" class="study" src="/images/my/study.png"></image>

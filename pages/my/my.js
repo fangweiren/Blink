@@ -17,7 +17,8 @@ Page({
   data: {
     authorized: false,
     userInfo: null,
-    bookCount: 0
+    bookCount: 0,
+    classics: null
   },
 
   /**
@@ -26,6 +27,7 @@ Page({
   onLoad: function (options) {
     this.userAuthorized()
     this.getMyBookCount()
+    this.getMyFavor()
     // wx.getUserInfo({
     //   success: data => {
     //     console.log(data)
@@ -47,6 +49,14 @@ Page({
           })
         }
       }
+    })
+  },
+
+  getMyFavor() {
+    classicModel.getMyFavor(res => {
+      this.setData({
+        classics: res
+      })
     })
   },
 
